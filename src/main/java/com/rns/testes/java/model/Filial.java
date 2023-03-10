@@ -16,17 +16,17 @@ public class Filial extends GenericEntity<Long> {
     @GeneratedValue(generator = "FILIAL_SEQ", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String razaoSocial;
 
     @CNPJ
-    @Column
+    @Column(nullable = false)
     private String cnpj;
 
     @Column
     private String endereco;
 
-    @Column
+    @Column(nullable = false)
     private EnumTipoFilial tipoFilial;
 
 }

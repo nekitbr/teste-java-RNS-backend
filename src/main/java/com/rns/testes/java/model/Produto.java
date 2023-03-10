@@ -2,7 +2,10 @@ package com.rns.testes.java.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "PRODUTO")
@@ -12,7 +15,7 @@ public class Produto extends GenericEntity<String>{
     @Id
     private String id;
 
-    @Column
+    @Column(nullable = false)
     private String nome;
 
 }
