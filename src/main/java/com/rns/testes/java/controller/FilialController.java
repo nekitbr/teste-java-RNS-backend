@@ -15,45 +15,51 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping
+@RequestMapping("/filial")
 public class FilialController {
-
-    private static final String BASE_URL = "filial/";
 
     @Autowired
     IFilialService service;
 
-    @GetMapping(value = BASE_URL + "find-all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/find", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<List<Filial>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping(value = BASE_URL + "find-by-id", produces = MediaType.APPLICATION_JSON_VALUE, params = {"id"})
+    @GetMapping(value = "/find/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<Filial> findById(@RequestParam(name = "id") Long id) {
+    public ResponseEntity<Filial> findById(
+        @PathVariable Long id
+    ) {
         return ResponseEntity.ok(service.findById(id));
     }
 
-    @PutMapping(value = BASE_URL + "update", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<Filial> update(@RequestBody FilialDto dto) {
+    public ResponseEntity<Filial> update(
+        @RequestBody FilialDto dto
+    ) {
         return ResponseEntity.ok(service.update(FilialMapper.INSTANCE.dtoToEntity(dto)));
     }
 
-    @PostMapping(value = BASE_URL + "insert", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/insert", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<Filial> insert(@RequestBody FilialDto dto) {
+    public ResponseEntity<Filial> insert(
+        @RequestBody FilialDto dto
+    ) {
         return ResponseEntity.ok(service.save(FilialMapper.INSTANCE.dtoToEntity(dto)));
     }
 
-    @DeleteMapping(value = BASE_URL + "delete", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@RequestParam(name = "id") Long id) {
+    public void delete(
+        @PathVariable Long id
+    ) {
         service.delete(id);
     }
 
-    @GetMapping(value = BASE_URL + "tipo/find-all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/tipo/find", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<List<EnumTipoFilial>> findAllEnumTipoFilial() {
         return ResponseEntity.ok(EnumTipoFilial.getAll());

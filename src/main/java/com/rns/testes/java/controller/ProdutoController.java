@@ -14,41 +14,47 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping
+@RequestMapping("/produto")
 public class ProdutoController {
-
-    private static final String BASE_URL = "produto/";
 
     @Autowired
     IProdutoService service;
 
-    @GetMapping(value = BASE_URL + "find-all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/find", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<List<Produto>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping(value = BASE_URL + "find-by-id", produces = MediaType.APPLICATION_JSON_VALUE, params = {"id"})
+    @GetMapping(value = "/find/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<Produto> findById(@RequestParam(name = "id") String id) {
+    public ResponseEntity<Produto> findById(
+        @PathVariable String id
+    ) {
         return ResponseEntity.ok(service.findById(id));
     }
 
-    @PutMapping(value = BASE_URL + "update", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<Produto> update(@RequestBody ProdutoDto dto) {
+    public ResponseEntity<Produto> update(
+        @RequestBody ProdutoDto dto
+    ) {
         return ResponseEntity.ok(service.update(ProdutoMapper.INSTANCE.dtoToEntity(dto)));
     }
 
-    @PostMapping(value = BASE_URL + "insert", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/insert", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<Produto> insert(@RequestBody ProdutoDto dto) {
+    public ResponseEntity<Produto> insert(
+        @RequestBody ProdutoDto dto
+    ) {
         return ResponseEntity.ok(service.save(ProdutoMapper.INSTANCE.dtoToEntity(dto)));
     }
 
-    @DeleteMapping(value = BASE_URL + "delete", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@RequestParam(name = "id") String id) {
+    public void delete(
+        @PathVariable String id
+    ) {
         service.delete(id);
     }
 
