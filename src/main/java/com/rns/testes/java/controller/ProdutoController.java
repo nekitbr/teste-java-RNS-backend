@@ -14,24 +14,28 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/produto")
+@RequestMapping("/produtos")
 public class ProdutoController {
 
     @Autowired
-    IProdutoService service;
+    IProdutoService produtoService;
 
-    @GetMapping(value = "/find", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<List<Produto>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+        return ResponseEntity.ok(
+            produtoService.findAll()
+        );
     }
 
-    @GetMapping(value = "/find/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<Produto> findById(
         @PathVariable String id
     ) {
-        return ResponseEntity.ok(service.findById(id));
+        return ResponseEntity.ok(
+            produtoService.findById(id)
+        );
     }
 
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,7 +43,11 @@ public class ProdutoController {
     public ResponseEntity<Produto> update(
         @RequestBody ProdutoDto dto
     ) {
-        return ResponseEntity.ok(service.update(ProdutoMapper.INSTANCE.dtoToEntity(dto)));
+        return ResponseEntity.ok(
+            produtoService.update(
+                ProdutoMapper.INSTANCE.dtoToEntity(dto)
+            )
+        );
     }
 
     @PostMapping(value = "/insert", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -47,7 +55,11 @@ public class ProdutoController {
     public ResponseEntity<Produto> insert(
         @RequestBody ProdutoDto dto
     ) {
-        return ResponseEntity.ok(service.save(ProdutoMapper.INSTANCE.dtoToEntity(dto)));
+        return ResponseEntity.ok(
+            produtoService.save(
+                ProdutoMapper.INSTANCE.dtoToEntity(dto)
+            )
+        );
     }
 
     @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -55,7 +67,7 @@ public class ProdutoController {
     public void delete(
         @PathVariable String id
     ) {
-        service.delete(id);
+        produtoService.delete(id);
     }
 
 }
