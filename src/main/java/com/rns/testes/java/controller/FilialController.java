@@ -15,24 +15,28 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/filial")
+@RequestMapping("/filiais")
 public class FilialController {
 
     @Autowired
-    IFilialService service;
+    IFilialService filialService;
 
-    @GetMapping(value = "/find", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<List<Filial>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+        return ResponseEntity.ok(
+            filialService.findAll()
+        );
     }
 
-    @GetMapping(value = "/find/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<Filial> findById(
         @PathVariable Long id
     ) {
-        return ResponseEntity.ok(service.findById(id));
+        return ResponseEntity.ok(
+            filialService.findById(id)
+        );
     }
 
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,7 +44,11 @@ public class FilialController {
     public ResponseEntity<Filial> update(
         @RequestBody FilialDto dto
     ) {
-        return ResponseEntity.ok(service.update(FilialMapper.INSTANCE.dtoToEntity(dto)));
+        return ResponseEntity.ok(
+            filialService.update(
+                FilialMapper.INSTANCE.dtoToEntity(dto)
+            )
+        );
     }
 
     @PostMapping(value = "/insert", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,7 +56,11 @@ public class FilialController {
     public ResponseEntity<Filial> insert(
         @RequestBody FilialDto dto
     ) {
-        return ResponseEntity.ok(service.save(FilialMapper.INSTANCE.dtoToEntity(dto)));
+        return ResponseEntity.ok(
+            filialService.save(
+                FilialMapper.INSTANCE.dtoToEntity(dto)
+            )
+        );
     }
 
     @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,12 +68,14 @@ public class FilialController {
     public void delete(
         @PathVariable Long id
     ) {
-        service.delete(id);
+        filialService.delete(id);
     }
 
     @GetMapping(value = "/tipo/find", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<List<EnumTipoFilial>> findAllEnumTipoFilial() {
-        return ResponseEntity.ok(EnumTipoFilial.getAll());
+        return ResponseEntity.ok(
+            EnumTipoFilial.getAll()
+        );
     }
 }

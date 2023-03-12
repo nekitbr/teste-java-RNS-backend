@@ -20,7 +20,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/estoque")
+@RequestMapping("/estoques")
 public class EstoqueController {
 
     @Autowired
@@ -30,18 +30,22 @@ public class EstoqueController {
     @Autowired
     IFilialService filialService;
 
-    @GetMapping(value = "/find", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Estoque>> findAll() {
-        return ResponseEntity.ok(estoqueService.findAll());
+        return ResponseEntity.ok(
+            estoqueService.findAll()
+        );
     }
 
-    @GetMapping(value = "/find/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Estoque> findById(
         @PathVariable Long id
     ) {
-        return ResponseEntity.ok(estoqueService.findById(id));
+        return ResponseEntity.ok(
+            estoqueService.findById(id)
+        );
     }
 
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -49,7 +53,11 @@ public class EstoqueController {
     public ResponseEntity<Estoque> update(
         @RequestBody EstoqueDto dto
     ) {
-        return ResponseEntity.ok(estoqueService.update(EstoqueMapper.INSTANCE.dtoToEntity(dto)));
+        return ResponseEntity.ok(
+            estoqueService.update(
+                EstoqueMapper.INSTANCE.dtoToEntity(dto)
+            )
+        );
     }
 
     @PostMapping(value = "/insert", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,7 +70,9 @@ public class EstoqueController {
 
         Estoque estoque = new Estoque(produto, filial, dto.getQuantidade());
 
-        return ResponseEntity.ok(estoqueService.save(estoque));
+        return ResponseEntity.ok(
+            estoqueService.save(estoque)
+        );
     }
 
     @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
